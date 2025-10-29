@@ -1,20 +1,32 @@
-# Examen DVC et Dagshub
-Dans ce dépôt vous trouverez l'architecture proposé pour mettre en place la solution de l'examen. 
+# Projet Machine Learning - Concentration de Silice
 
-```bash       
-├── examen_dvc          
-│   ├── data       
-│   │   ├── processed      
-│   │   └── raw       
-│   ├── metrics       
-│   ├── models      
-│   │   ├── data      
-│   │   └── models        
-│   ├── src       
-│   └── README.md.py       
-```
-N'hésitez pas à rajouter les dossiers ou les fichiers qui vous semblent pertinents.
+Ce projet implémente un pipeline complet de machine learning pour prédire la concentration de silice en utilisant DVC (Data Version Control) et DagsHub.
 
-Vous devez dans un premier temps *Fork* le repo et puis le cloner pour travailler dessus. Le rendu de cet examen sera le lien vers votre dépôt sur DagsHub. Faites attention à bien mettre https://dagshub.com/licence.pedago en tant que colaborateur avec des droits de lecture seulement pour que ce soit corrigé.
+## 📊 Vue d'ensemble
 
-Vous pouvez télécharger les données à travers le lien suivant : https://datascientest-mlops.s3.eu-west-1.amazonaws.com/mlops_dvc_fr/raw.csv.
+- **Objectif** : Prédire la variable `silica_concentrate` à partir de données de processus industriel
+- **Dataset** : 1817 échantillons, 9 features numériques
+- **Pipeline** : Préprocessing → GridSearch → Entraînement → Évaluation
+
+## 🏗️ Structure du projet
+
+├── data/
+│ ├── raw_data/ # Données brutes
+│ └── processed_data/ # Données traitées
+├── src/
+│ ├── split_data.py # Division train/test
+│ ├── normalize_data.py # Normalisation des features
+│ ├── gridsearch.py # Optimisation hyperparamètres
+│ └── evaluate_model.py # Évaluation du modèle
+├── models/
+│ └── train_model.py # Entraînement final
+├── metrics/ # Métriques d'évaluation
+├── dvc.yaml # Pipeline DVC
+├── dvc.lock # Verrouillage des versions
+└── requirements.txt # Dépendances Python
+
+## 🚀 Installation et utilisation
+
+### Prérequis
+```bash
+pip install -r requirements.txt
