@@ -1,0 +1,82 @@
+schema: '2.0'
+stages:
+  split_data:
+    cmd: python3 src/split_data.py
+    deps:
+    - path: data/raw_data/raw.csv
+      hash: md5
+      md5: 617b56af2992376d5c3e91ad80823898
+      size: 333757
+    - path: src/split_data.py
+      hash: md5
+      md5: c98bd91fb65169d65878c0fbd8e49ecf
+      size: 1081
+    outs:
+    - path: data/processed_data/X_test.csv
+      hash: md5
+      md5: b6c2910e3b3fc562c5b516b63fc3e22c
+      size: 59909
+    - path: data/processed_data/X_train.csv
+      hash: md5
+      md5: ef01f67c035349e375300528a99938f5
+      size: 238533
+    - path: data/processed_data/y_test.csv
+      hash: md5
+      md5: a051d29629c8bbb4cfb7e85c7f0315da
+      size: 6456
+    - path: data/processed_data/y_train.csv
+      hash: md5
+      md5: a9cd9d91da89f732843d72548f64ded3
+      size: 25951
+  normalize:
+    cmd: python3 src/normalize_data.py
+    deps:
+    - path: data/processed_data/X_test.csv
+      hash: md5
+      md5: b6c2910e3b3fc562c5b516b63fc3e22c
+      size: 59909
+    - path: data/processed_data/X_train.csv
+      hash: md5
+      md5: ef01f67c035349e375300528a99938f5
+      size: 238533
+    - path: src/normalize_data.py
+      hash: md5
+      md5: fc46363e587f1f6814a2997bd0583111
+      size: 2309
+    outs:
+    - path: data/processed_data/X_test_scaled.csv
+      hash: md5
+      md5: 5e079189af6bd091d651a89fafb1c290
+      size: 57026
+    - path: data/processed_data/X_train_scaled.csv
+      hash: md5
+      md5: c1b80eb7f083888b625dd0369cf381f8
+      size: 227497
+    - path: models/scaler.pkl
+      hash: md5
+      md5: a98d1fe0e644e98f7f0d863ba720bde6
+      size: 853
+  hyperparameter_tuning:
+    cmd: python3 src/gridsearch.py
+    deps:
+    - path: data/processed_data/X_train_scaled.csv
+      hash: md5
+      md5: c1b80eb7f083888b625dd0369cf381f8
+      size: 227497
+    - path: data/processed_data/y_train.csv
+      hash: md5
+      md5: a9cd9d91da89f732843d72548f64ded3
+      size: 25951
+    - path: src/gridsearch.py
+      hash: md5
+      md5: 819e9a7ecbab2316341f075a2851824e
+      size: 4170
+    outs:
+    - path: models/best_model.pkl
+      hash: md5
+      md5: 626b4b4d67c72ca401a8cbd705f2f063
+      size: 7754084
+    - path: models/best_params.pkl
+      hash: md5
+      md5: befb70a6ea13ae09803dfd824e91f32f
+      size: 69

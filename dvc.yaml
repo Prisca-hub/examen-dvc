@@ -1,0 +1,32 @@
+stages:
+  split_data:
+    cmd: python3 src/split_data.py
+    deps:
+    - src/split_data.py  
+    - data/raw_data/raw.csv
+    outs:
+    - data/processed_data/X_train.csv
+    - data/processed_data/X_test.csv
+    - data/processed_data/y_train.csv
+    - data/processed_data/y_test.csv
+
+  normalize:
+    cmd: python3 src/normalize_data.py
+    deps:
+    - src/normalize_data.py
+    - data/processed_data/X_train.csv
+    - data/processed_data/X_test.csv
+    outs:
+    - data/processed_data/X_train_scaled.csv
+    - data/processed_data/X_test_scaled.csv
+    - models/scaler.pkl
+
+  hyperparameter_tuning:
+    cmd: python3 src/gridsearch.py
+    deps:
+    - src/gridsearch.py
+    - data/processed_data/X_train_scaled.csv
+    - data/processed_data/y_train.csv
+    outs:
+    - models/best_model.pkl
+    - models/best_params.pkl
