@@ -12,3 +12,6 @@ __pycache__/
 # Système
 .DS_Store
 *.log
+data/processed_data/X_train_scaled.csv
+data/processed_data/X_test_scaled.csv
+models/scaler.pkl
